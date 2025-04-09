@@ -87,6 +87,10 @@ def dzs_percentage_stub():
         }
     }
 
+"The slot area right around the goalie. A large number of goals are score there"
+"Good defensemen protect this space"
+"Example: 68% Slot Coverage means the player is guarding the slot 68% of the time it matters"
+
 @router.get("/slot-coverage")
 def slot_coverage_effectiveness(db: Session = Depends(get_db)):
     # Get puck frames
