@@ -1,0 +1,16 @@
+# Core dependencies
+fastapi[standard]
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+databases
+alembic
+pydantic-settings
+
+#env
+python-dotenv
+
+#testing
+pytest
