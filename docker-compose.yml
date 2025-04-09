@@ -27,6 +27,16 @@ services:
       - postgres
     ports:
       - "8000:8000"
+  
+  frontend:
+    build:
+      context: ./frontend
+    container_name: maple_leafs_frontend
+    depends_on:
+      - backend
+    ports:
+      - "8501:8501"
+
 
 volumes:
   postgres_data:

@@ -1,6 +1,14 @@
 # Maple Leafs Hockey Telemetrics
 This system evaluates NHL players (defensemen currently) based on player &amp; puck tracking data using predictive metrics. 
 
+# How to access
+
+After building the Docker containers, access via:
+
+1. Access FE: http://localhost:8501
+
+2. Access BE: http://localhost:8000/docs
+
 ## Project Goals
 - Analyze defensive effectiveness using real-world and synthetic tracking data
 
@@ -13,6 +21,10 @@ This system evaluates NHL players (defensemen currently) based on player &amp; p
 - Leverage PostgreSQL for relational and time-series data
 
 - Use FastAPI for serving insights and managing simulation
+
+## Architecture
+
+![](./assets/mlse-architecture.png)
 
 ## Metrics used to Evaluate a Defenseman
 
@@ -74,4 +86,13 @@ docker exec -it maple_leafs_postgres bash
 psql -U telemetry -d telemetry_db
 ```
 
+## Interview Questions
+
+| Questions                                                                                                  | Answers                                                                                                                                                                                                                                                                                                                                                   |
+|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| What metrics would you create to help you in your evaluation? Why?                                         | • Defensive Zone Time per Shift – shows time spent under pressure • Slot Coverage Percentage – evaluates positioning in high-danger area • (Planned) Zone Entry Denial Rate – measures effectiveness in stopping zone rushes • (Planned) xGA – expected goals against while on ice • Metrics chosen to reflect positioning, pressure handling, and impact |
+| Describe, at a high level, the process(es) you will use to transform the raw data into your new metric(s). | • Generate or ingest player/puck tracking data (x, y, timestamp, etc.) • Define spatial zones like slot, DZ, etc.                                                                                                                                                                                                                                         |
+| What kinds of unexpected errors might you run into over the course of a season?                            | • Data spikes (e.g., bad  x/y coordinates) • Puck and player timestamp mismatches  • Game format changes (e.g., overtime, 3v3) affecting assumptions                                                                                                                                                                                                      |
+| How would you make sure your processing code is time- and memory-efficient?                                | • Heavy use of key/store like redis during games • Archiving of game to compressed archive                                                                                                                                                                                                                                                                |
+|                                                                                                            |                                                                                                                                                                                                                                                                                                                                                           |
 
