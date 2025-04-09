@@ -31,8 +31,24 @@ def generate_position(pos: str, team: int):
 
     if pos == "G":
         return zone_bias * 85 + random.uniform(-5, 5), random.uniform(-5, 5), 0.1
+    
+    # TODO: Update defense details, related to zone-time calculation
     elif pos in ["LD", "RD"]:
-        return zone_bias * 60 + random.uniform(-15, 15), random.uniform(-20, 20), 0.1
+        base_x = -85 if team == 1 else 85
+
+        # Most of the time in DZ, some of the time near the slot
+        r = random.random()
+        if r < 0.2:
+            # Inside the slot
+            return random.uniform(-20, 20), random.uniform(-10, 10), 0.1
+        elif r < 0.8:
+            # General DZ area
+            return base_x + random.uniform(-10, 10), random.uniform(-25, 25), 0.1
+        else:
+            # Occasionally move forward
+            return base_x + random.uniform(20, 50), random.uniform(-25, 25), 0.1
+
+
     elif pos in ["C"]:
         return zone_bias * random.uniform(-30, 30), random.uniform(-15, 15), 0.1
     elif pos in ["LW"]:
@@ -42,9 +58,24 @@ def generate_position(pos: str, team: int):
     return 0.0, 0.0, 0.1
 
 
+# This related to slot-coverge calulation
 def generate_puck_location():
-    """Simulate puck location near the middle with bias toward offensive rush."""
-    return random.uniform(-50, 50), random.uniform(-25, 25), 0.05
+    """
+    Simulate puck movement:
+    - 70% in one team's defensive zone (either left or right)
+    - 30% in neutral or offensive zones
+    """
+    rnd = random.random()
+    if rnd < 0.35:
+        # Puck in Team 1's DZ (x < -75)
+        return random.uniform(-100, -75), random.uniform(-20, 20), 0.05
+    elif rnd < 0.7:
+        # Puck in Team 2's DZ (x > 75)
+        return random.uniform(75, 100), random.uniform(-20, 20), 0.05
+    else:
+        # Neutral zone
+        return random.uniform(-50, 50), random.uniform(-42.5, 42.5), 0.05
+
 
 
 def seed_tracking_data(session: Session, num_games=3, seconds=60, hz=100):

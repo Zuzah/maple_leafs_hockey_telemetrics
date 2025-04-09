@@ -26,6 +26,12 @@ This system evaluates NHL players (defensemen currently) based on player &amp; p
 | Transition Kill Rate         | Measures ability to disrupt neutral zone rush.                 | Detect puck movement across neutral zone, check if defenseman impedes path.        |
 | xGA While On-Ice (Adj)       | High-level view of impact.                                     | Advanced: Requires estimating expected goals using player + puck positions.        |
 
+# Implement Later
+**Defensive Zone Start Percentage (DZS%)**:
+The proportion of a player's shifts that begin in their defensive zone.
+
+> **DZS%** = (Defensive Zone Starts) / (Offensive Zone Starts + Neutral Zone Starts + Defensive Zone Starts + On-the-Fly Starts)
+
 Sources:
 
 - https://thewincolumn.ca/2017/08/18/behind-the-bruise-evaluating-the-force-of-a-blocked-shot/
